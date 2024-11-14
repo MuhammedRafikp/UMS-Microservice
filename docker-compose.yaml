@@ -11,6 +11,8 @@ services:
       - user-service
     env_file:
       - ./api-gateway/.env  # Loads environment variables specific to api-gateway
+    volumes:
+      - ./api-gateway:/app  # Mounts the local directory to /app in the container
 
   auth-service:
     build:
@@ -19,6 +21,8 @@ services:
       - "4000:4000"
     env_file:
       - ./auth-service/.env  # Loads environment variables specific to auth-service
+    volumes:
+      - ./auth-service:/app  # Mounts the local directory to /app in the container
 
   user-service:
     build:
@@ -27,3 +31,5 @@ services:
       - "5000:5000"
     env_file:
       - ./user-service/.env  # Loads environment variables specific to user-service
+    volumes:
+      - ./user-service:/app  # Mounts the local directory to /app in the container
