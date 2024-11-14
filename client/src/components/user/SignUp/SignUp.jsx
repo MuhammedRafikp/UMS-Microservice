@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 import './SignUp.css'
-import crud_logo from '/crud_logo.png'
+import crud_logo from '/crud_logo.png';
+import { toast } from 'react-toastify';
 import API from '../../../../config/axiosConfig';
 
 const SignUp = () => {
@@ -83,8 +84,14 @@ const SignUp = () => {
       try {
 
         const response = await API.post('/register', formData);
-        console.log('Form submitted', response.data);
-        navigate('/login');
+        if(response.data.success){
+          toast.success('Registration Successful');
+          console.log('Registration Successful')
+          // navigate('/login');
+        }else{
+          toast.success('Something went wrong!');
+        }
+
       } catch (error) {
         console.error('Error submitting form', error);
         setFormError({ ...formError, submit: 'An error occurred!' });

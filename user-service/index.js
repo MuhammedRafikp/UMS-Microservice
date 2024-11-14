@@ -1,13 +1,13 @@
 import express from 'express';
 import { configDotenv } from 'dotenv';
-import mongoose from 'mongoose';
 import morgan from 'morgan';
+import { connectDB } from './config/db.js'
 
 configDotenv();
 
-const { PORT, MONGODB_URI } = process.env;
+const { PORT,MONGODB_URI } = process.env;
 
-mongoose.connect(MONGODB_URI);
+connectDB(MONGODB_URI);
 
 console.log(MONGODB_URI)
 
