@@ -1,11 +1,12 @@
 import { authAPI } from "../config/axiosConfig.js";
 
-export const register = async(req,res)=>{
+export const register = async (req, res) => {
     try {
         const user = req.body;
-        const response = authAPI.post('/auth/register',user);
         console.log(user)
+        const response = authAPI.post('/auth/register', user);
+       
     } catch (error) {
-        
+        console.log(error.message)
     }
 }

@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  api-gateway:
+    build:
+      context: ./api-gateway
+    ports:
+      - "3000:3000"
+    depends_on:
+      - auth-service
+      - user-service
+    env_file:
+      - ./api-gateway/.env  # Loads environment variables specific to api-gateway
+
+  auth-service:
+    build:
+      context: ./auth-service
+    ports:
+      - "4000:4000"
+    env_file:
+      - ./auth-service/.env  # Loads environment variables specific to auth-service
+
+  user-service:
+    build:
+      context: ./user-service
+    ports:
+      - "5000:5000"
+    env_file:
+      - ./user-service/.env  # Loads environment variables specific to user-service

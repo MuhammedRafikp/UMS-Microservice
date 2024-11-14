@@ -15,9 +15,18 @@ console.log(MONGODB_URI)
 
 const app = express();
 
+// app.use(cors({
+//     origin:'http://localhost:3000'
+// }));
+
+// app.use(cors({
+//     origin: ['http://localhost:3000', 'http://api-gateway:3000'],  // Allow multiple origins
+// }));
+
 app.use(cors({
-    origin:'http://localhost:3000'
+    origin: '*',  // Allow all origins (use with caution)
 }));
+
 
 app.use(morgan('dev'));
 

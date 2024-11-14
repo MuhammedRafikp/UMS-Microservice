@@ -1,9 +1,14 @@
+import {registerUser} from '../grpc/userClient.js'
 
 export const register = async(req,res)=>{
     try {
-        const {name, email, password,mobile } = req.body;
+        console.log("Reached!")
+        const userData = req.body;
+        console.log(userData)
 
-    } catch (error) {
+        const response = await registerUser(userData);
         
+    } catch (error) {
+        console.log(error.message)
     }
 }

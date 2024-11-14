@@ -1,14 +1,14 @@
-import {userAPI} from "../config/axiosConfig"
+// import {userAPI} from "../config/axiosConfig"
 
-const getProfile = async(req,res)=>{
-    try {
-        const response =await API.get('/userProfile');
-        return response.data;
-    } catch (error) {
-        throw error;
-    }
-}
+// const getProfile = async(req,res)=>{
+//     try {
+//         const response =await userAPI.get('/userProfile');
+//         return response.data;
+//     } catch (error) {
+//         throw error;
+//     }
+// }
 
-export {
-    getProfile
-}
+// export {
+//     getProfile
+// }

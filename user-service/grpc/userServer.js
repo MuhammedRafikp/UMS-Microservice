@@ -2,7 +2,7 @@ import grpc from '@grpc/grpc-js';
 import protoLoader from '@grpc/proto-loader';
 import User from '../models/userModel.js';
 
-const PROTO_PATH = './src/userService.proto';
+const PROTO_PATH = './userService.proto';
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
@@ -18,10 +18,11 @@ const server = new grpc.Server();
 
 async function registerUser(call, callback) {
   const userData = call.request;
-  console.log(userData);
-  
+  console.log("userData :",userData);
+  // const {name,email,password,mobile} = userData;
   try {
     const newUser = await User.create(userData);
+    console.log(newUser)
     callback(null, { userId: newUser._id.toString(), message: 'User created successfully' });
   } catch (error) {
     callback({

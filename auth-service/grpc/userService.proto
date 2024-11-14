@@ -21,3 +21,4 @@ message RegisterUserResponse {
   string userId = 1;
   string message = 2;
 }
+
