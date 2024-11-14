@@ -84,14 +84,14 @@ const SignUp = () => {
       try {
 
         const response = await API.post('/register', formData);
-        // if(response.data.success){
-        //   toast.success('Registration Successful');
-        //   console.log('Registration Successful')
-        //   // navigate('/login');
-        // }else{
-        //   toast.error('Something went wrong!');
-        // }
-        console.log(response.data)
+        if(response.data.success){
+          toast.success('Registration Successful');
+          console.log('Registration Successful');
+          console.log(response.data)
+          navigate('/login');
+        }else{
+          toast.error('Something went wrong!');
+        }
 
       } catch (error) {
         console.error('Error submitting form', error);
