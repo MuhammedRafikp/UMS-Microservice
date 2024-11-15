@@ -72,8 +72,8 @@ const Login = () => {
     if (validate()) {
       setIsLoading(true);
       try {
-        const response = await API.post('/login', formData);
-        console.log('Login successful', response.data);
+        const response = await API.post('/auth/login', formData);
+        console.log('response data :', response.data);
         if (response.data.success) {
           console.log("token", response.data.token);
           dispatch(loginSuccess({

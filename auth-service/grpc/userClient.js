@@ -16,21 +16,18 @@ const userProto = grpc.loadPackageDefinition(packageDefinition).user;
 
 const client = new userProto.UserService('localhost:50051', grpc.credentials.createInsecure());
 
-function registerUser(userData) {
-  console.log("user client......Data:",userData)
+export const loginUser = ({ email, password }) => {
   return new Promise((resolve, reject) => {
-    const request = { userData };
-    console.log('request :',request);
+    const request = { email, password };
 
-    client.RegisterUser(request, (error, response) => {
+    client.LoginUser(request, (error, response) => {
       if (error) {
-        console.error('Error in RegisterUser:', error);
+        console.error("Error in gRPC loginUser:", error.message);
         reject(error);
       } else {
         resolve(response);
       }
     });
   });
-}
+};
 
-export{ registerUser };

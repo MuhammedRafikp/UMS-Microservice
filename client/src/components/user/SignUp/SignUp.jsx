@@ -83,10 +83,10 @@ const SignUp = () => {
     if (validate()) {
       try {
 
-        const response = await API.post('/register', formData);
+        const response = await API.post('/user/register', formData);
         if(response.data.success){
           toast.success('Registration Successful');
-          console.log('Registration Successful');
+          console.log('Registration Successful!');
           console.log(response.data)
           navigate('/login');
         }else{

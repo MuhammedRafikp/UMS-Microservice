@@ -1,7 +1,7 @@
 import grpc from '@grpc/grpc-js';
 import protoLoader from '@grpc/proto-loader';
 import { configDotenv } from 'dotenv';
-import {connectDB } from '../config/db.js';
+import { connectDB } from '../config/db.js';
 import User from '../models/userModel.js';
 
 configDotenv({ path: '../.env' });
@@ -24,26 +24,35 @@ const userProto = grpc.loadPackageDefinition(packageDefinition).user;
 
 const server = new grpc.Server();
 
-async function registerUser(call, callback) {
-  const userData = call.request.userData; // Extract the userData correctly
-  console.log("Received user data: ", userData);
+const loginUser = async (call, callback) => {
   try {
-    const newUser = await User.create(userData);
-    console.log("newUser :",newUser);
-    callback(null, { userId: newUser._id.toString(), message: 'User created successfully' });
+    const { email, password } = call.request;
+    console.log(email,password);
+    // Find user in database
+    const userData = await User.findOne({ email });
+    console.log(userData);
+    
+    if (!userData || userData.password !== password) {
+      callback(null, { success: false });
+      return;
+    }
+
+    // Return success and userId if credentials match
+    callback(null, { success: true, userId: userData._id.toString() });
+
   } catch (error) {
-    console.error("Error creating user:", error);
+    console.error("Error in loginUser:", error.message);
     callback({
       code: grpc.status.INTERNAL,
-      details: 'Error creating user',
+      details: 'Internal server error',
     });
   }
-}
+};
 
 const startGrpcServer = async () => {
   await connectDB(MONGODB_URI);
 
-  server.addService(userProto.UserService.service, { registerUser });
+  server.addService(userProto.UserService.service, { loginUser });
 
   server.bindAsync(`0.0.0.0:${GRPC_PORT}`, grpc.ServerCredentials.createInsecure(), () => {
     console.log(`gRPC server running at http://localhost:${GRPC_PORT}`);

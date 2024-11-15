@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import { configDotenv } from 'dotenv';
 import morgan from 'morgan';
-import authRouter from './routes/authRoutes.js'
+import authRouter from './routes/authRoutes.js';
+import userRouter from './routes/userRoutes.js';
 
 configDotenv();
 
@@ -19,7 +20,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
-app.use("/", authRouter);
+app.use("/auth", authRouter);
+app.use("/user", userRouter);
 
 const { PORT } = process.env;
 

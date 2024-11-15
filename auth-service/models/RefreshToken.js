@@ -10,7 +10,7 @@ const refreshTokenSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    cretedAt: {
+    createdAt: {  
         type: Date,
         default: Date.now
     },
