@@ -3,9 +3,10 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../../redux/userAuthSlice'
 import './Home.css'
-import crud_logo from '/crud_logo.png'
+import crud_logo from '/crud_logo.png';
+import profile_url from '../../../../public/profile.png'
 import { toast } from 'react-toastify'
-import API from '../../../../config/axiosConfig'
+import { UnprotectedAPI,ProtectedAPI } from '../../../../config/axiosConfig';
 
 const Home = () => {
 
@@ -19,53 +20,49 @@ const Home = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const token = localStorage.getItem('userToken');
-    console.log("token : ", token)
+    const fetchUserData = async () => {
+      try {
+        const response = await ProtectedAPI.get('/user/user-profile');
 
-      const fetchUserData = async () => {
-        try {
-          const response = await API.get('/user-details');
-          
-          if (response.data.success) {
-            console.log("data got")
-            setUserData(response.data.user);
-          } else {
-            toast.error("Failed to fetch user details")
-          }
-
-        } catch (error) {
-          console.error('Failed to load user data. Redirecting to login...');
-          console.error(error);
-         
-          if(error.response.data.message == "User not found"){
-            toast.error('You are Blocked by admin');
-            localStorage.removeItem("userToken");
-            console.log("deleted user");
-            navigate("/login");
-          }
+        if (response.data.success) {
+          console.log("data got")
+          setUserData(response.data.userData);
         }
+
+      } catch (error) {
+        toast.error("Failed to fetch user details");
+        console.error(error);
+
+        // if (error.response.data.message == "User not found") {
+        //   toast.error('You are Blocked by admin');
+        //   localStorage.removeItem("userToken");
+        //   console.log("deleted user");
+        //   navigate("/login");
+        // }
       }
+    }
 
-      fetchUserData();
+    fetchUserData();
 
-    
-    
   }, []);
 
   const handleLogout = () => {
 
-    dispatch(logout(
-      {isLoggedIn:false}
-    ));
+    // dispatch(logout(
+    //   { isLoggedIn: false }
+    // ));
+    dispatch(logout());
 
     navigate('/login');
   };
 
-  const navigateToeditUser=()=>{
+  const navigateToeditUser = () => {
     navigate('/edit-user');
   }
 
-  const { name, email, mobile, profile_url } = userData;
+  // const { name, email, mobile, profile_url } = userData;
+
+  const { name, email, mobile } = userData;
 
   return (
 

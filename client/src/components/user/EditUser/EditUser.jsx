@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import API from '../../../../config/axiosConfig';
+import { ProtectedAPI } from '../../../../config/axiosConfig';
 import crud_logo from '/crud_logo.png';
-import profile from '/profile.png';
+import profile_url from '../../../../public/profile.png'
 import './EditUser.css';
 import { toast } from 'react-toastify';
 import Loading from '../../loading/loading';
 
 const EditUser = () => {
+    // const [userData, setUserData] = useState({
+    //     name: '',
+    //     mobile: '',
+    //     profile_url:''
+    // });
+
     const [userData, setUserData] = useState({
-        name: '',
-        mobile: '',
-        profile_url:''
+        name: 'h',
+        mobile: 'ff',
     });
+
+    console.log(userData.name, userData.mobile);
+
     console.log('this is edit page')
     const [profileImage, setProfileImage] = useState(null);
     const [errors, setErrors] = useState({});
@@ -22,21 +30,15 @@ const EditUser = () => {
 
     useEffect(() => {
         const fetchUserData = async () => {
-            const token = localStorage.getItem('userToken');
+
             try {
-                // const response = await API.get('/user-details', {
-                //     headers: {
-                //         Authorization: `Bearer ${token}`
-                //     }
-                // });
-                const response = await API.get('/user-details');
+                const response = await ProtectedAPI.get('/user/user-profile');
                 if (response.data.success) {
-                    setUserData(response.data.user);
-                } else {
-                    console.error('Failed to fetch user details');
-                    navigate('/login');
+                    console.log("data got")
+                    setUserData(response.data.userData);
                 }
             } catch (error) {
+                toast.error("Failed to fetch user details");
                 console.error('Error fetching user data:', error);
                 navigate('/login');
             }
@@ -67,9 +69,9 @@ const EditUser = () => {
         });
     };
 
-    const handleFileChange = (e) => {
-        setProfileImage(e.target.files[0]);
-    };
+    // const handleFileChange = (e) => {
+    //     setProfileImage(e.target.files[0]);
+    // };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -80,57 +82,54 @@ const EditUser = () => {
 
         setLoading(true);
 
-        const token = localStorage.getItem('userToken');
-    
-        console.log("token : ",token);
-        
         const formData = new FormData();
-
-       
         formData.append('name', userData.name);
         formData.append('mobile', userData.mobile);
 
-        console.log("name:",userData.name)
-        console.log("mobile:",userData.mobile)
-        
-        if (profileImage) {
-            formData.append('profileImage', profileImage);
-        }
 
-        console.log("FormData : ",formData)
+
+        // if (profileImage) {
+        //     formData.append('profileImage', profileImage);
+        // }
+
+        console.log("FormData : ", formData)
 
         try {
-            const response = await API.put('/edit-profile', formData, {
-                headers: {
-                    // Authorization: `Bearer ${token}`,
-                    'Content-Type': 'multipart/form-data'
-                }
-            });
+
+            // const response = await ProtectedAPI.put('/user/edit-profile', formData, {
+            //     headers: {
+            //         // Authorization: `Bearer ${token}`,
+            //         'Content-Type': 'multipart/form-data'
+            //     }
+            // });
+
+            const response = await ProtectedAPI.put('/user/edit-profile',userData);
+
             if (response.data.success) {
                 toast.success('Profile updated successfully!');
                 navigate('/');
-            } else {
-                toast.error('Failed to update profile');
+            }else{
+                console.log(response.error);
             }
+
         } catch (error) {
-            
-            if(error.response.data.message == "User not found"){
-                toast.error('You are Blocked by admin');
-                localStorage.removeItem("userToken");
-                console.log("deleted user");
-                navigate("/login");
-              }
+            toast.error('Failed to update profile');
         } finally {
-        setLoading(false); 
+            setLoading(false);
+        }
+    };
+
+    const navigateHome = () => {
+        navigate('/');
     }
-};
 
     return (
         <div className='edit-user'>
             <img src={crud_logo} width={95} height={80} alt="" />
             <div className='edit-user-form'>
                 <h1>Edit My Profile</h1>
-                <img src={userData.profile_url || profile} alt="" />
+                {/* <img src={userData.profile_url || profile} alt="" /> */}
+                <img src={profile_url} alt="profile" />
                 <form onSubmit={handleSubmit}>
                     <input
                         type="text"
@@ -150,7 +149,7 @@ const EditUser = () => {
                     />
                     {errors.mobile && <p className='error'>{errors.mobile}</p>}
 
-                    <div className='file-input-container'>
+                    {/* <div className='file-input-container'>
                         <input
                             type="file"
                             id="file-input"
@@ -158,9 +157,14 @@ const EditUser = () => {
                             onChange={handleFileChange}
                         />
                         <label htmlFor="file-input" className="upload-img-btn">Upload Profile</label>
-                    </div>
-                    {isloading?(<Loading/>):( <button type='submit'>Save changes</button>)}
-                   
+                    </div> */}
+                    {isloading ? (<Loading />) : (
+                        <>
+                            <button type='submit'>Save changes</button>
+                            <button className='cancel-btn' onClick={navigateHome}>Cancel</button>
+                        </>
+                    )}
+
                 </form>
             </div>
         </div>

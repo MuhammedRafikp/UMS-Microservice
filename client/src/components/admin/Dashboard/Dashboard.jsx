@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import './Dashboard.css'
 import crud_logo from '/crud_logo.png'
-import API from '../../../../config/axiosConfig'
+import {ProtectedAPI} from '../../../../config/axiosConfig'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { logout } from '../../../redux/adminAuthSlice'

@@ -32,7 +32,7 @@ const App = () => {
           <Route path='/edit-user' element={<EditUser />} />
         </Route>
 
-        <Route element={<AdminLoginProtector />}>
+        {/* <Route element={<AdminLoginProtector />}>
           <Route path='/admin/login' element={<AdminLogin />} />
         </Route>
 
@@ -40,7 +40,7 @@ const App = () => {
           <Route path='/admin/dashboard' element={<Dashboard />} />
           <Route path='/admin/add-user' element={<CreateUser />} />
           <Route path='/admin/edit-user/:userId' element={<AdminEditUser />} />
-        </Route>
+        </Route> */}
 
       </Routes>
 

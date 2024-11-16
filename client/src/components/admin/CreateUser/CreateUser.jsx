@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './CreateUser.css';
 import crud_logo from '/crud_logo.png';
 import { useNavigate } from 'react-router-dom';
-import API from '../../../../config/axiosConfig';
+import {ProtectedAPI} from '../../../../config/axiosConfig';
 import { toast } from 'react-toastify';
 
 const CreateUser = () => {

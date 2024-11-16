@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import crud_logo from '/crud_logo.png'
 import './AdminLogin.css'
-import API from '../../../../config/axiosConfig';
+import {UnprotectedAPI} from '../../../../config/axiosConfig';
 import { loginSuccess } from '../../../redux/adminAuthSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

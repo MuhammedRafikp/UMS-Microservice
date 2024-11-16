@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import API from '../../../../config/axiosConfig';
+import {ProtectedAPI} from '../../../../config/axiosConfig';
 import crud_logo from '/crud_logo.png';
 import profile from '/profile.png';
 import './AdminEditUser.css';

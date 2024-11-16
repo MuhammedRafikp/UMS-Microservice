@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginSuccess } from '../../../redux/userAuthSlice';
 import './login.css';
 import crud_logo from '/crud_logo.png';
-import API from '../../../../config/axiosConfig';
+import {UnprotectedAPI} from '../../../../config/axiosConfig';
 import { toast } from 'react-toastify';
 import Loading from '../../loading/loading';
 
@@ -68,30 +68,34 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-   
+
     if (validate()) {
       setIsLoading(true);
       try {
-        const response = await API.post('/auth/login', formData);
+        const response = await UnprotectedAPI.post('/auth/login', formData);
         console.log('response data :', response.data);
         if (response.data.success) {
-          console.log("token", response.data.token);
+
+          const { accessToken,refreshToken } = response.data;
+
           dispatch(loginSuccess({
-            token: response.data.token,
-            isLoggedIn:true
-          }));
-          setIsLoading(false)
+              accessToken,
+              refreshToken
+            })
+          );
+
+          setIsLoading(false);
           toast.success('Login Successful');
-          navigate('/');
+          navigate('/'); // Redirect to home or dashboard
         }
       } catch (error) {
         setIsLoading(false);
-        toast.error('Invalid email or password');
+        toast.error('Invalid email or password..........');
         console.error('Error logging in', error);
       }
     }
   };
-
+  
   const navigateToSignUp = () => {
     navigate('/signup');
   };

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './SignUp.css'
 import crud_logo from '/crud_logo.png';
 import { toast } from 'react-toastify';
-import API from '../../../../config/axiosConfig';
+import {UnprotectedAPI} from '../../../../config/axiosConfig';
 
 const SignUp = () => {
 
@@ -82,8 +82,8 @@ const SignUp = () => {
     e.preventDefault();
     if (validate()) {
       try {
-
-        const response = await API.post('/user/register', formData);
+        
+        const response = await UnprotectedAPI.post('/user/register', formData);
         if(response.data.success){
           toast.success('Registration Successful');
           console.log('Registration Successful!');

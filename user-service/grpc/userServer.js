@@ -28,7 +28,7 @@ const loginUser = async (call, callback) => {
   try {
     const { email, password } = call.request;
     console.log(email,password);
-    // Find user in database
+
     const userData = await User.findOne({ email });
     console.log(userData);
     
@@ -37,7 +37,6 @@ const loginUser = async (call, callback) => {
       return;
     }
 
-    // Return success and userId if credentials match
     callback(null, { success: true, userId: userData._id.toString() });
 
   } catch (error) {

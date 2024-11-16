@@ -99,6 +99,14 @@
     background-color: #003874;
 }
 
+.edit-user-form .cancel-btn{
+    background:  #e60000 ;
+}
+
+.edit-user-form .cancel-btn:hover {
+    background-color: #b40000;
+}
+
 .form-switch {
     margin-top: 40px;
     color: #737373;
