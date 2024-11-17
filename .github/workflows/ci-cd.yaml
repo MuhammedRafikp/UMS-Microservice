@@ -11,29 +11,29 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4  # Updated to v4 for Node.js 20 compatibility
 
       - name: Set up Docker
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3  # Updated to v3 for Node.js 20 compatibility
 
       - name: Log in to Docker Hub
-        uses: docker/login-action@v2
+        uses: docker/login-action@v3  # Updated to v3 for Node.js 20 compatibility
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
+      - name: Build Docker images
         run: |
-            docker build -t ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest -f ./api-gateway/Dockerfile ./api-gateway
-            docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:latest -f ./auth-service/Dockerfile ./auth-service
-            docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:latest -f ./user-service/Dockerfile ./user-service
-  
-        # Step 5: Push the Docker image to Docker Hub
-      - name: Push Docker image
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest -f ./api-gateway/Dockerfile ./api-gateway
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:latest -f ./auth-service/Dockerfile ./auth-service
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:latest -f ./user-service/Dockerfile ./user-service
+
+      - name: Push Docker images
         run: |
-            docker push ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest
-            docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:latest
-            docker push ${{ secrets.DOCKER_USERNAME }}/user-service:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/user-service:latest
+
 
 #   deploy:
 #     runs-on: ubuntu-latest
