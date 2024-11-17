@@ -24,9 +24,9 @@ jobs:
 
       - name: Build Docker image
         run: |
-            docker build -t ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest .
-            docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:latest .
-            docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:latest .
+            docker build -t ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest -f ./api-gateway/Dockerfile ./api-gateway
+            docker build -t ${{ secrets.DOCKER_USERNAME }}/auth-service:latest -f ./auth-service/Dockerfile ./auth-service
+            docker build -t ${{ secrets.DOCKER_USERNAME }}/user-service:latest -f ./user-service/Dockerfile ./user-service
   
         # Step 5: Push the Docker image to Docker Hub
       - name: Push Docker image
