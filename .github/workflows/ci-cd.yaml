@@ -34,7 +34,6 @@ jobs:
           docker push ${{ secrets.DOCKER_USERNAME }}/auth-service:latest
           docker push ${{ secrets.DOCKER_USERNAME }}/user-service:latest
 
-
 #   deploy:
 #     runs-on: ubuntu-latest
 #     needs: build

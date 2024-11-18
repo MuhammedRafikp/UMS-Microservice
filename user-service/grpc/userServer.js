@@ -4,17 +4,18 @@ import { configDotenv } from 'dotenv';
 import { connectDB } from '../config/db.js';
 import User from '../models/userModel.js';
 
-configDotenv({ path: '../.env' });
+// configDotenv({ path: '../.env' });
+configDotenv();
 
 const { GRPC_PORT, MONGODB_URI } = process.env;
 console.log("GRPC_PORT :", GRPC_PORT)
 console.log("MONGODB_URI :", MONGODB_URI)
 
-const PROTO_PATH = './userService.proto';
+const PROTO_PATH = './grpc/userService.proto';
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
-  longs: String,
+  longs: String, 
   enums: String,
   defaults: true,
   oneofs: true,
@@ -27,11 +28,11 @@ const server = new grpc.Server();
 const loginUser = async (call, callback) => {
   try {
     const { email, password } = call.request;
-    console.log(email,password);
+    console.log(email, password);
 
     const userData = await User.findOne({ email });
-    console.log(userData);
-    
+    console.log("userData :",userData);
+
     if (!userData || userData.password !== password) {
       callback(null, { success: false });
       return;
@@ -48,14 +49,14 @@ const loginUser = async (call, callback) => {
   }
 };
 
-const startGrpcServer = async () => {
+export const startGrpcServer = async () => {
   await connectDB(MONGODB_URI);
 
   server.addService(userProto.UserService.service, { loginUser });
 
-  server.bindAsync(`0.0.0.0:${GRPC_PORT}`, grpc.ServerCredentials.createInsecure(), () => {
-    console.log(`gRPC server running at http://localhost:${GRPC_PORT}`);
+  server.bindAsync(`user-service:${GRPC_PORT}`, grpc.ServerCredentials.createInsecure(), () => {
+    console.log(`gRPC server running at http://user-service:${GRPC_PORT}`);
   });
 };
 
-startGrpcServer();
+// startGrpcServer();

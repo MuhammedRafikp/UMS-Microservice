@@ -19,11 +19,11 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 
 const { PORT } = process.env;
+
 
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`)

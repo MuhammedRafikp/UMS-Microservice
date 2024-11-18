@@ -13,7 +13,7 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
-# Expose the port the auth service listens on (e.g., 4000)
+# Expose the port the user service listens on (e.g., 4000)
 EXPOSE 5000
 
 # Start the Auth service

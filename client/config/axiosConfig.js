@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://localhost:3000';
+const baseURL = 'http://127.0.0.1:3000';
 
 const UnprotectedAPI = axios.create({
   baseURL,
@@ -17,11 +17,6 @@ ProtectedAPI.interceptors.request.use((config) => {
   }
   return config;
 });
-
-import { useDispatch } from 'react-redux'
-import { logout } from '../src/redux/userAuthSlice';
-import { toast } from 'react-toastify';
-
 
 ProtectedAPI.interceptors.response.use(
   (response) => response, // If the response is successful, return it as is.
