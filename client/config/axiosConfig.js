@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://127.0.0.1:3000';
+const baseURL = "http://192.168.49.2:30000";  // Minikube external IP and NodePort
 
 const UnprotectedAPI = axios.create({
   baseURL,
