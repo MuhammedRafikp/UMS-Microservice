@@ -13,12 +13,10 @@ import axios from "axios";
 // Client-Side Example for Auth API
 export const authAPI = axios.create({
     baseURL: 'http://192.168.49.2:30000/auth',  // API Gateway routes to Auth Service
-    timeout: 5000,
   });
   
   // Client-Side Example for User API
   export const userAPI = axios.create({
     baseURL: 'http://192.168.49.2:30000/user',  // API Gateway routes to User Service
-    timeout: 5000,
   });
   
