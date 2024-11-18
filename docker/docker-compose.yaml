@@ -11,9 +11,11 @@ services:
       - auth-service
       - user-service
     env_file:
-      - ../api-gateway/.env  # Loads environment variables specific to api-gateway
+      - ../api-gateway/.env
     volumes:
-      - ../api-gateway:/app  # Mounts the local directory to /app in the container
+      - ../api-gateway:/app
+    networks:
+      - app-network
 
   auth-service:
     build:
@@ -22,9 +24,11 @@ services:
     ports:
       - "4000:4000"
     env_file:
-      - ../auth-service/.env  # Loads environment variables specific to auth-service
+      - ../auth-service/.env
     volumes:
-      - ../auth-service:/app  # Mounts the local directory to /app in the container
+      - ../auth-service:/app
+    networks:
+      - app-network
 
   user-service:
     build:
@@ -33,6 +37,12 @@ services:
     ports:
       - "5000:5000"
     env_file:
-      - ../user-service/.env  # Loads environment variables specific to user-service
+      - ../user-service/.env
     volumes:
-      - ../user-service:/app  # Mounts the local directory to /app in the container
+      - ../user-service:/app
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
