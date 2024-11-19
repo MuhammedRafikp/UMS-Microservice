@@ -63,7 +63,7 @@ jobs:
             docker rm user-service || true
 
             echo "Starting new containers"
-            docker run -d --name api-gateway -p 3000:3000 --env-file ../api-gateway/.env ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest
-            docker run -d --name auth-service -p 4000:4000 --env-file ../auth-service/.env ${{ secrets.DOCKER_USERNAME }}/auth-service:latest
-            docker run -d --name user-service -p 5000:5000 --env-file ../user-service/.env ${{ secrets.DOCKER_USERNAME }}/user-service:latest
+            docker run -d --name api-gateway -p 3000:3000 ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest
+            docker run -d --name auth-service -p 4000:4000 ${{ secrets.DOCKER_USERNAME }}/auth-service:latest
+            docker run -d --name user-service -p 5000:5000 ${{ secrets.DOCKER_USERNAME }}/user-service:latest
           EOF
