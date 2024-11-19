@@ -15,7 +15,7 @@ const PROTO_PATH = './grpc/userService.proto';
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
   keepCase: true,
-  longs: String, 
+  longs: String,
   enums: String,
   defaults: true,
   oneofs: true,
@@ -31,7 +31,7 @@ const loginUser = async (call, callback) => {
     console.log(email, password);
 
     const userData = await User.findOne({ email });
-    console.log("userData :",userData);
+    console.log("userData :", userData);
 
     if (!userData || userData.password !== password) {
       callback(null, { success: false });
