@@ -35,6 +35,8 @@ app.use('/', userRouter);
 
 app.listen(PORT, async () => {
     console.log(`Express server is running on port ${PORT}`);
-    console.log("changes occuring...")
+    console.log("changes occuring...");
+
     await startGrpcServer();
+    
   });
