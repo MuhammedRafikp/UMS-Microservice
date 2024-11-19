@@ -58,9 +58,9 @@ jobs:
             docker stop user-service || true
 
             echo "Removing old containers"
-            docker rmi api-gateway || true
-            docker rmi auth-service || true
-            docker rmi user-service || true
+            docker rm api-gateway || true
+            docker rm auth-service || true
+            docker rm user-service || true
 
             echo "Starting new containers"
             docker run -d --name api-gateway -p 3000:3000 --env-file ../api-gateway/.env ${{ secrets.DOCKER_USERNAME }}/api-gateway:latest
