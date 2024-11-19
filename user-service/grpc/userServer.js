@@ -7,7 +7,11 @@ import User from '../models/userModel.js';
 // configDotenv({ path: '../.env' });
 configDotenv();
 
-const { GRPC_PORT, MONGODB_URI } = process.env;
+// const { GRPC_PORT, MONGODB_URI } = process.env;
+
+const GRPC_PORT = process.env.GRPC_PORT||50051
+const MONGODB_URI = process.env.MONGODB_URI||"mongodb+srv://rafikpmty:hPVIsrVXBihPdKWd@cluster0.i3fnlhj.mongodb.net/UMS-user-serivce";
+
 console.log("GRPC_PORT :", GRPC_PORT)
 console.log("MONGODB_URI :", MONGODB_URI)
 

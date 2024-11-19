@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const baseURL = 'http://35.154.233.89:3000';
+const baseURL = 'http://127.0.0.1:3000';
 
 const UnprotectedAPI = axios.create({
   baseURL,

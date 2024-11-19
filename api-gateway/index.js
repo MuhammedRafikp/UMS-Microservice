@@ -21,8 +21,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 
-const { PORT } = process.env;
-
+const PORT  = process.env.PORT||3000;
 
 app.listen(PORT, () => {
     console.log(`server is running on port ${PORT}`)

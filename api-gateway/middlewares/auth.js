@@ -5,7 +5,7 @@ export const validateAccessToken = (req, res, next) => {
         const token = req.headers['authorization'].split(' ')[1];
 
         if (token) {
-            const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
+            const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET||"Hello_world_access");
             req.user = decoded;
             next();
         }

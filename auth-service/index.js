@@ -7,7 +7,8 @@ import authRouter from './routes/authRoutes.js';
 
 configDotenv();
 
-const { PORT, MONGODB_URI } = process.env;
+const PORT = process.env.PORT||4000;
+const MONGODB_URI = process.env.PORT||'mongodb+srv://rafikpmty:hPVIsrVXBihPdKWd@cluster0.i3fnlhj.mongodb.net/UMS-auth-serivce';
 
 mongoose.connect(MONGODB_URI);
 

@@ -8,7 +8,11 @@ import { startGrpcServer } from './grpc/userServer.js';
 
 configDotenv();
 
-const { PORT, MONGODB_URI } = process.env;
+// const { PORT, MONGODB_URI } = process.env;
+
+const PORT = process.env.GRPC_PORT||5000
+
+const MONGODB_URI = process.env.MONGODB_URI||"mongodb+srv://rafikpmty:hPVIsrVXBihPdKWd@cluster0.i3fnlhj.mongodb.net/UMS-user-serivce";
 
 connectDB(MONGODB_URI);
 
