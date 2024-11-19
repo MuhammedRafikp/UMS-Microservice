@@ -42,7 +42,7 @@ export const getUserProfile = async (req, res) => {
         });
 
     } catch (error) {
-        console.error("Error while fetching user data :", error.message);
+        console.error("Error while fetching user data :", error);
     }
 }
 

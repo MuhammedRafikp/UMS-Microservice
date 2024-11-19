@@ -8,7 +8,7 @@ import authRouter from './routes/authRoutes.js';
 configDotenv();
 
 const PORT = process.env.PORT||4000;
-const MONGODB_URI = process.env.PORT||'mongodb+srv://rafikpmty:hPVIsrVXBihPdKWd@cluster0.i3fnlhj.mongodb.net/UMS-auth-serivce';
+const MONGODB_URI = process.env.MONGODB_URI||'mongodb+srv://rafikpmty:hPVIsrVXBihPdKWd@cluster0.i3fnlhj.mongodb.net/UMS-auth-serivce';
 
 mongoose.connect(MONGODB_URI);
 
@@ -17,7 +17,7 @@ console.log(MONGODB_URI)
 const app = express();
 
 app.use(cors({
-    origin:'http://35.154.233.89:3000'
+    origin:'http://localhost:3000'
 }));
 
 // app.use(cors());

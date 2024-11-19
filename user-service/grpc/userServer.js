@@ -10,6 +10,7 @@ configDotenv();
 // const { GRPC_PORT, MONGODB_URI } = process.env;
 
 const GRPC_PORT = process.env.GRPC_PORT||50051
+
 const MONGODB_URI = process.env.MONGODB_URI||"mongodb+srv://rafikpmty:hPVIsrVXBihPdKWd@cluster0.i3fnlhj.mongodb.net/UMS-user-serivce";
 
 console.log("GRPC_PORT :", GRPC_PORT)
@@ -58,9 +59,10 @@ export const startGrpcServer = async () => {
 
   server.addService(userProto.UserService.service, { loginUser });
 
-  server.bindAsync(`user-service:${GRPC_PORT}`, grpc.ServerCredentials.createInsecure(), () => {
-    console.log(`gRPC server running at http://user-service:${GRPC_PORT}`);
+  server.bindAsync(`0.0.0.0:${GRPC_PORT}`, grpc.ServerCredentials.createInsecure(), () => {
+    console.log(`gRPC server running at http://0.0.0.0:${GRPC_PORT}`);
   });
+  
 };
 
 // startGrpcServer();

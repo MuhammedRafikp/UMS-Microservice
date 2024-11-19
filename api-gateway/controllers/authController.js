@@ -15,14 +15,14 @@ export const login = async (req, res) => {
                 refreshToken: response.data.refreshToken
             });
         }
-
+        console.log("response:",response)
         return res.status(401).json({
             success: false,
             message: 'Invalid email or password',
         });
 
     } catch (error) {
-        console.error("Error in login route:", error.message);
+        console.error("Error in login route api:", error.message);
     }
 }
 

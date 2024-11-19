@@ -14,7 +14,7 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 
 const userProto = grpc.loadPackageDefinition(packageDefinition).user;
 
-const client = new userProto.UserService('user-service:50051', grpc.credentials.createInsecure());
+const client = new userProto.UserService('0.0.0.0:50051', grpc.credentials.createInsecure());
 
 export const loginUser = ({ email, password }) => {
   return new Promise((resolve, reject) => {

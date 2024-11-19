@@ -18,4 +18,3 @@ message LoginResponse {
   string userId = 2;     // The user ID (if login is successful)
 }
 
-
