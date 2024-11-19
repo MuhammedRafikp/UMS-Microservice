@@ -16,7 +16,7 @@ console.log(MONGODB_URI)
 const app = express();
 
 app.use(cors({
-    origin:'http://api-gateway:3000'
+    origin:'http://35.154.233.89:3000'
 }));
 
 // app.use(cors());

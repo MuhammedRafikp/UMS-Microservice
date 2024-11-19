@@ -19,7 +19,7 @@ const app = express();
 app.use(morgan('dev'));
 
 app.use(cors({
-    origin: 'http://api-gateway:3000' 
+    origin: 'http://35.154.233.89:3000' 
 }));
 
 // app.use(cors());

@@ -1,9 +1,9 @@
 import axios from "axios";
 
 export const authAPI = axios.create({
-    baseURL: 'http://auth-service:4000'
+    baseURL: 'http://35.154.233.89:4000'
 });
 
 export const userAPI = axios.create({
-    baseURL: 'http://user-service:5000'
+    baseURL: 'http://35.154.233.89:5000'
 });
